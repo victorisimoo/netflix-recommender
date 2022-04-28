@@ -2,7 +2,6 @@ package com.netflix.controller;
 
 import com.netflix.app.Principal;
 import javafx.fxml.Initializable;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
