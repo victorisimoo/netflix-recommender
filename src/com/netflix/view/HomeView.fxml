@@ -39,7 +39,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </PasswordField>
-      <Button layoutX="88.0" layoutY="307.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #e50914#e50914;" text="Iniciar sesión" textFill="WHITE">
+      <Button fx:id="btnSubmit" layoutX="88.0" layoutY="307.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #e50914#e50914;" text="Iniciar sesión" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -66,7 +66,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Text>
-      <Text fill="WHITE" layoutX="227.0" layoutY="401.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscribete ahora">
+      <Text fx:id="lblSubscribe" fill="WHITE" layoutX="227.0" layoutY="401.0" onMouseClicked="#createAccount" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscribete ahora">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
