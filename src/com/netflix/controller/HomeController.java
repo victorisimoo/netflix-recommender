@@ -9,9 +9,7 @@ public class HomeController implements Initializable {
     private Principal principalScene;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     public void setPrincipalScene(Principal principalScene){
         this.principalScene = principalScene;
@@ -21,7 +19,9 @@ public class HomeController implements Initializable {
         return principalScene;
     }
 
-    public void createAccount(){
-        principalScene.registerScene();
+    public void createAccount(){ principalScene.registerScene();}
+
+    public void uploadFile(){
+        principalScene.uploadFileScene();
     }
 }

@@ -39,7 +39,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </PasswordField>
-      <Button fx:id="btnSubmit" layoutX="88.0" layoutY="307.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #e50914#e50914;" text="Iniciar sesión" textFill="WHITE">
+      <Button fx:id="btnSubmit" layoutX="88.0" layoutY="307.0" mnemonicParsing="false" onAction="#uploadFile" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #e50914#e50914;" text="Iniciar sesión" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
