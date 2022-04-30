@@ -14,15 +14,15 @@ import java.util.ResourceBundle;
 
 public class UploadFileController implements Initializable {
     private Principal principalScene;
-    List<String> Files;
+    private List<String> files;
 
     @FXML
     private TextField txtNameFile;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Files = new ArrayList<>();
-        Files.add("*.csv");
+        files = new ArrayList<>();
+        files.add("*.csv");
     }
 
     public void setPrincipalScene(Principal principalScene) {
@@ -35,7 +35,7 @@ public class UploadFileController implements Initializable {
 
     public void uploadFile(){
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("File", Files));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("File", files));
         File route = fc.showOpenDialog(null);
         if (route != null) {
             txtNameFile.setText(route.getAbsolutePath());

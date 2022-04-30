@@ -1,9 +1,6 @@
 package com.netflix.app;
 
-import com.netflix.controller.HomeController;
-import com.netflix.controller.ProfileController;
-import com.netflix.controller.RegisterController;
-import com.netflix.controller.UploadFileController;
+import com.netflix.controller.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -76,6 +73,18 @@ public class Principal extends Application {
             ProfileController profileController = (ProfileController) changeScene("ProfileView.fxml", 400, 600);
             profileController.setPrincipalScene(this);
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method for displaying the Search screen.
+     */
+    public void searchScene(){
+        try{
+            SearchController searchController = (SearchController) changeScene("SearchView.fxml", 400, 600);
+            searchController.setPrincipalScene(this);
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
