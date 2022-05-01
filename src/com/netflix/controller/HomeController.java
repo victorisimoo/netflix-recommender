@@ -1,6 +1,7 @@
 package com.netflix.controller;
 
 import com.netflix.app.Principal;
+import com.netflix.app.Storage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -50,6 +51,7 @@ public class HomeController implements Initializable {
         String pass = txtPassword.getText();
         api_loginUser(user, pass);
         if(process != null){
+            Storage.getInstance().name_actual_user = user;
             principalScene.uploadFileScene();
         }else{
             infError.setVisible(true);

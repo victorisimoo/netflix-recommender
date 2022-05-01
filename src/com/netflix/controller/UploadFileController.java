@@ -1,11 +1,13 @@
 package com.netflix.controller;
 
 import com.netflix.app.Principal;
+import com.netflix.app.Storage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -17,27 +19,43 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ResourceBundle;
 
+/**
+ * UploadFileController
+ *
+ * @author victorisimo
+ */
 public class UploadFileController implements Initializable {
     private Principal principalScene;
     private List<String> files;
     private String filepath;
-    @FXML
-    private TextField txtNameFile;
+    @FXML private TextField txtNameFile;
+    @FXML private Button btnUpload;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnUpload.setDisable(true);
         files = new ArrayList<>();
         files.add("*.csv");
     }
 
+    /**
+     * This method is used to send the file to the server
+     * @param principalScene
+     */
     public void setPrincipalScene(Principal principalScene) {
         this.principalScene = principalScene;
     }
 
-    public Principal getPrincipalScene(){
-        return this.principalScene;
+    /**
+     * This method is used to change to profile scene
+     */
+    public void changeToProfileScene() {
+        principalScene.profileScene();
     }
 
+    /**
+     * This method is used to upload the file to the server
+     */
     public void uploadFile()  {
         FileChooser fc = new FileChooser();
 
@@ -46,9 +64,13 @@ public class UploadFileController implements Initializable {
         if (route != null) {
             txtNameFile.setText(route.getAbsolutePath());
             filepath = route.getAbsolutePath();
+            btnUpload.setDisable(false);
         }
     }
 
+    /**
+     * This method is used to upload the file to the server
+     */
     public void saveFile(){
         JSONArray ja = new JSONArray();
         HttpURLConnection conn = null;
@@ -69,15 +91,17 @@ public class UploadFileController implements Initializable {
                 }
                 if (!flag) {
                     if (count != 0) {
-                        var test = fillJson(values, ja);
+                        fillJson(values, ja);
                     } else {
                         count++;
                     }
                 }
             }
-            var value = getStringArray(ja);
+
             URL url = new URL("http://127.0.0.1:5000/upload_data/");
-            for(String input: value) {
+            String[] value = getStringArray(ja);
+            for(String input: value){
+                input = "[" + input + "]";
                 byte[] postData = input.getBytes(StandardCharsets.UTF_8);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setDoOutput(true);
@@ -95,6 +119,7 @@ public class UploadFileController implements Initializable {
 
                 BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
+                // print the output from the server : delete this line if you don't want to see the output.
                 String output;
                 while ((output = br.readLine()) != null) {
                     System.out.println(output);
@@ -109,10 +134,11 @@ public class UploadFileController implements Initializable {
         }
     }
 
-    public void profileScene(){
-        principalScene.profileScene();
-    }
-
+    /**
+     * This method is used to fill the json array with the data from the file
+     * @param jsonArray
+     * @return
+     */
     public String[] getStringArray(JSONArray jsonArray) {
         String[] stringArray = null;
         if (jsonArray != null) {
@@ -125,6 +151,13 @@ public class UploadFileController implements Initializable {
         return stringArray;
     }
 
+    /**
+     * Fill the JSONArray with the values of the file
+     * @param values
+     * @param ja
+     * @return
+     * @throws JSONException
+     */
     private JSONArray fillJson(String[] values, JSONArray ja) throws JSONException {
         JSONObject jo = new JSONObject();
         jo.put("color", values[0].trim());

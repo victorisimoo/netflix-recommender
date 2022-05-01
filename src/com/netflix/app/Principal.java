@@ -25,7 +25,7 @@ public class Principal extends Application {
     public void start(Stage stage) throws Exception {
         this.principalScene = stage;
         principalScene.setTitle("Netflix | App recommender");
-        uploadFileScene();
+        homeScene();
         principalScene.show();
     }
 
