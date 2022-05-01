@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -39,7 +40,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </PasswordField>
-      <Button fx:id="btnSubmit" layoutX="88.0" layoutY="307.0" mnemonicParsing="false" onAction="#uploadFile" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #e50914#e50914;" text="Iniciar sesión" textFill="WHITE">
+      <Button fx:id="btnSubmit" layoutX="88.0" layoutY="307.0" mnemonicParsing="false" onAction="#createUser" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #e50914#e50914;" text="Iniciar sesión" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -86,5 +87,11 @@
             <Font size="12.0" />
          </font>
       </Text>
+      <Pane fx:id="infError" layoutX="107.0" layoutY="95.0" prefHeight="27.0" prefWidth="192.0" style="-fx-background-color: #e50914#e50914 #e50914#e50914;">
+         <children>
+            <Text fill="WHITE" layoutX="19.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error en el inicio de sesión" />
+            <Text fx:id="txtError" fill="WHITE" layoutX="174.0" layoutY="18.0" onMouseClicked="#errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="X" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

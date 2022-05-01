@@ -21,7 +21,6 @@ public class RegisterController implements Initializable {
     private Principal principalScene;
     @FXML private PasswordField txtPassword;
     @FXML private TextField txtEmail;
-    @FXML private Button btnRegister;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
@@ -45,46 +44,6 @@ public class RegisterController implements Initializable {
     }
 
     public int api_insertUser(String username, String password) {
-
-        try{
-            // Establishment of connection with the api rest
-            URL url_insertUser = new URL("http://127.0.0.1:5000/insertUser");
-            HttpURLConnection con = (HttpURLConnection) url_insertUser.openConnection();
-            con.setRequestMethod("POST");
-            int status = con.getResponseCode();
-            // Structuring the request
-            Map<String, String> parameters = new LinkedHashMap<>();
-            parameters.put("name", username);
-            parameters.put("contrasena", password);
-
-            StringBuilder post_data = new StringBuilder();
-            for(Map.Entry param : parameters.entrySet()){
-                if(post_data.length() != 0) post_data.append('&');
-                post_data.append(URLEncoder.encode(String.valueOf(param.getKey()), "UTF-8"));
-                post_data.append('=');
-                post_data.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            byte[] postDataBytes = post_data.toString().getBytes(StandardCharsets.UTF_8);
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-            con.setDoOutput(true);
-            con.getOutputStream().write(postDataBytes);
-            status = con.getResponseCode();
-            Reader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-            StringBuilder sb = new StringBuilder();
-            for (int c; (c = in.read()) >= 0;)
-                sb.append((char)c);
-            String response = sb.toString();
-            System.out.println(response);
-            in.close();
-            con.disconnect();
-            return 200;
-        }catch(MalformedURLException malformedURLException){
-            malformedURLException.printStackTrace();
-            return 400;
-        }catch (IOException ioException){
-            ioException.printStackTrace();
-            return 400;
-        }
+        return 200;
     }
 }
