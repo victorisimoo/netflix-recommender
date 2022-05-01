@@ -50,7 +50,7 @@ public class HomeController implements Initializable {
         String pass = txtPassword.getText();
         api_loginUser(user, pass);
         if(process != null){
-            principalScene.profileScene();
+            principalScene.uploadFileScene();
         }else{
             infError.setVisible(true);
             txtEmail.setText("");
@@ -86,6 +86,7 @@ public class HomeController implements Initializable {
                 os = new DataOutputStream(conn.getOutputStream());
                 os.write(postData);
                 os.flush();
+
 
                 if (conn.getResponseCode() != 200) {
                     throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());

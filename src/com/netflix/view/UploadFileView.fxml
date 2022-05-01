@@ -42,7 +42,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="btnSearch1" layoutX="69.0" layoutY="430.0" mnemonicParsing="false" onAction="#profileScene" prefHeight="38.0" prefWidth="265.0" style="-fx-background-color: #e50914#e50914;" text="Cargar archivo seleccionado" textFill="WHITE">
+      <Button fx:id="btnSearch1" layoutX="69.0" layoutY="430.0" mnemonicParsing="false" onAction="#saveFile" prefHeight="38.0" prefWidth="265.0" style="-fx-background-color: #e50914#e50914;" text="Cargar archivo seleccionado" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
