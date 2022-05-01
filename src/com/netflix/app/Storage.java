@@ -16,4 +16,8 @@ public class Storage {
     }
 
     public String name_actual_user = "";
+
+    public String getName_actual_user() {
+        return name_actual_user;
+    }
 }

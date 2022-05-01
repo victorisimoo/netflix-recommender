@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="netflix-recommender:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/netflix_recommender_jar</output-path>
+    <root id="archive" name="netflix-recommender.jar">
+      <element id="module-output" name="netflix-recommender" />
+      <element id="extracted-dir" path="/Applications/json-20180130.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/org.json.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="/Applications/javafx-sdk-18.0.1/lib/javafx.graphics.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

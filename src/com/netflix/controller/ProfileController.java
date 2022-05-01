@@ -1,6 +1,7 @@
 package com.netflix.controller;
 
 import com.netflix.app.Principal;
+import com.netflix.app.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(Storage.getInstance().getName_actual_user());
         cmbTypeSearch.setItems(searchType);
     }
 
