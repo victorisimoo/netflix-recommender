@@ -3,11 +3,9 @@ package com.netflix.controller;
 import com.netflix.app.Principal;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -20,6 +18,7 @@ import java.util.ResourceBundle;
  * @author victorisimoo
  */
 public class HomeController implements Initializable {
+
     private Principal principalScene;
     private String process = null;
     @FXML private PasswordField txtPassword;
@@ -30,22 +29,23 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         infError.setVisible(false);
     }
-
+    
+    /**
+     * Method to handle user login
+     */
     public void setPrincipalScene(Principal principalScene){
         this.principalScene = principalScene;
     }
 
-    public Principal getPrincipalScene(){
-        return principalScene;
-    }
-
+    /**
+     * Method to log in to the user registry
+     */
     public void createAccount(){ principalScene.registerScene();}
 
-    public void uploadFile(){
-        principalScene.uploadFileScene();
-    }
-
-    public void createUser() throws IOException {
+    /**
+     * Method to log in to the user registry
+     */
+    public void loginUserMethod() throws IOException {
         String user = txtEmail.getText();
         String pass = txtPassword.getText();
         api_loginUser(user, pass);
@@ -58,10 +58,16 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Method for error handling
+     */
     public void errorMessage(){
         infError.setVisible(false);
     }
 
+    /**
+     * Method for login process
+     */
     public void api_loginUser(String username, String password) throws IOException {
         HttpURLConnection conn = null;
         DataOutputStream os;
