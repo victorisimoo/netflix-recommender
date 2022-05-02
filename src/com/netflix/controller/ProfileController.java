@@ -144,7 +144,7 @@ public class ProfileController implements Initializable {
 
     public void getViewsProfile(){
         HttpURLConnection conn = null;
-        DataOutputStream os;
+        DataOutputStream os = null;
         int count = 0;
         Movie movie = null;
         try{
