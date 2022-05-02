@@ -3,8 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -63,21 +62,7 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Text>
-      <TableView fx:id="tblRecom" layoutX="33.0" layoutY="135.0" prefHeight="200.0" prefWidth="335.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Título" />
-          <TableColumn prefWidth="88.0" text="Género" />
-            <TableColumn prefWidth="77.0" text="Director" />
-            <TableColumn prefWidth="94.0" text="Duración" />
-        </columns>
-      </TableView>
-      <TableView fx:id="tblHistory" layoutX="33.0" layoutY="375.0" prefHeight="200.0" prefWidth="335.0">
-         <columns>
-            <TableColumn prefWidth="75.0" text="Título" />
-            <TableColumn prefWidth="88.0" text="Género" />
-            <TableColumn prefWidth="77.0" text="Director" />
-            <TableColumn prefWidth="94.0" text="Duración" />
-         </columns>
-      </TableView>
+      <TextArea layoutX="30.0" layoutY="135.0" prefHeight="200.0" prefWidth="342.0" />
+      <TextArea layoutX="29.0" layoutY="378.0" prefHeight="200.0" prefWidth="342.0" />
    </children>
 </AnchorPane>
