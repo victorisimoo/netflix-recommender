@@ -14,6 +14,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.CDL;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +30,10 @@ public class UploadFileController implements Initializable {
     private Principal principalScene;
     private List<String> files;
     private String filepath;
-    @FXML private TextField txtNameFile;
-    @FXML private Button btnUpload;
+    @FXML
+    private TextField txtNameFile;
+    @FXML
+    private Button btnUpload;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,6 +44,7 @@ public class UploadFileController implements Initializable {
 
     /**
      * This method is used to send the file to the server
+     *
      * @param principalScene
      */
     public void setPrincipalScene(Principal principalScene) {
@@ -56,7 +61,7 @@ public class UploadFileController implements Initializable {
     /**
      * This method is used to upload the file to the server
      */
-    public void uploadFile()  {
+    public void uploadFile() {
         FileChooser fc = new FileChooser();
 
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("File", files));
@@ -71,19 +76,19 @@ public class UploadFileController implements Initializable {
     /**
      * This method is used to upload the file to the server
      */
-    public void saveFile(){
+    public void saveFile() {
         JSONArray ja = new JSONArray();
         HttpURLConnection conn = null;
         DataOutputStream os = null;
         boolean flag = false;
 
-        try (FileInputStream fis = new FileInputStream(filepath); InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8); BufferedReader reader = new BufferedReader(isr) ){
+        try (FileInputStream fis = new FileInputStream(filepath); InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8); BufferedReader reader = new BufferedReader(isr)) {
             String line;
-            int count =0;
+            int count = 0;
             while ((line = reader.readLine()) != null) {
                 flag = false;
                 String[] values = line.split(",");
-                for (String element : values)  {
+                for (String element : values) {
                     if (element.equals("")) {
                         flag = true;
                         break;
@@ -100,34 +105,43 @@ public class UploadFileController implements Initializable {
 
             URL url = new URL("http://127.0.0.1:5000/upload_data/");
             String[] value = getStringArray(ja);
-            for(String input: value){
-                input = "[" + input + "]";
-                byte[] postData = input.getBytes(StandardCharsets.UTF_8);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setDoOutput(true);
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("charset", "utf-8");
-                conn.setRequestProperty("Content-Length", Integer.toString(input.length()));
-                os = new DataOutputStream(conn.getOutputStream());
-                os.write(postData);
-                os.flush();
-
-                if (conn.getResponseCode() != 200) {
-                    throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+            String totalJson = null;
+            for (String input : value) {
+                if (totalJson != null) {
+                    totalJson = totalJson + input + ",";
+                }else{
+                    totalJson = input + ",";
                 }
 
-                BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            }
+            totalJson = totalJson.substring(0, totalJson.length() - 1);
+            totalJson = "[" + totalJson + "]";
+            byte[] postData = totalJson.getBytes(StandardCharsets.UTF_8);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(totalJson.length()));
+            os = new DataOutputStream(conn.getOutputStream());
+            os.write(postData);
+            os.flush();
 
-                // print the output from the server : delete this line if you don't want to see the output.
-                String output;
-                while ((output = br.readLine()) != null) {
-                    System.out.println(output);
-                }
-                conn.disconnect();
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
 
-        }catch (IOException e) {
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+            // print the output from the server : delete this line if you don't want to see the output.
+            String output;
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+            }
+            conn.disconnect();
+            principalScene.profileScene();
+
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -136,6 +150,7 @@ public class UploadFileController implements Initializable {
 
     /**
      * This method is used to fill the json array with the data from the file
+     *
      * @param jsonArray
      * @return
      */
@@ -153,6 +168,7 @@ public class UploadFileController implements Initializable {
 
     /**
      * Fill the JSONArray with the values of the file
+     *
      * @param values
      * @param ja
      * @return
@@ -190,4 +206,5 @@ public class UploadFileController implements Initializable {
         jo.put("movie_facebook_likes", values[27].trim());
         return ja.put(jo);
     }
+
 }

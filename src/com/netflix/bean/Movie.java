@@ -51,7 +51,11 @@ public class Movie {
     }
 
     public String toString() {
-        return index + ") title=" + title + ", director=" + director + ", points=" + points;
+        return index + ") titulo=" + title + ", director=" + director + ", points=" + points;
+    }
+
+    public String getWithGenre() {
+        return index + ") titulo=" + title + ", director=" + director + ", genero=" + points;
     }
 
 }

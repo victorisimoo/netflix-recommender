@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.Pane;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SearchController implements Initializable {
+
     private ObservableList<String> searchType = FXCollections.observableArrayList("Título","Género", "Director");
     private ArrayList<Movie> moviesSearch = new ArrayList<>();
     private Principal principalScene;
@@ -37,10 +39,12 @@ public class SearchController implements Initializable {
     @FXML private TextArea txtResult;
     @FXML private TextField txtSearch;
     @FXML private TextField txtViewMovie;
+    @FXML private Pane pnLikeMovie;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txtResult.setEditable(false);
+        pnLikeMovie.setVisible(false);
         txtViewMovie.setTextFormatter(new TextFormatter<>(c -> {
             if (!c.getControlNewText().matches("\\d*"))
                 return null;
@@ -166,14 +170,93 @@ public class SearchController implements Initializable {
             int index = Integer.parseInt(txtViewMovie.getText());
             if(index < moviesSearch.size()){
                     Movie movie = moviesSearch.get(index);
-                    System.out.println(movie.getTitle());
+                    movie.setTitle(movie.getTitle().substring(0, movie.getTitle().length()-1));
+                    Storage.getInstance().setName_actual_movie(movie.getTitle());
+                    pnLikeMovie.setVisible(true);
             }else{
-                txtViewMovie.setText("");
+                txtViewMovie.setText("Please do not be violent!");
             }
 
         }else {
             // Debe de mostrar en la pantalla un error
         }
+    }
+
+    public void likeMovie(){
+        pnLikeMovie.setVisible(false);
+        HttpURLConnection conn = null;
+        DataOutputStream os = null;
+
+        try{
+            URL url = new URL("http://127.0.0.1:5000/like/");
+            String[] inputData = {"{\"name\": "+(char)34 + Storage.getInstance().name_actual_user + (char)34+", \"contrasena\": "+(char)34 + Storage.getInstance().getPassword_actual_user() + (char)34+ ", \"movie_title\": "+(char)34 + Storage.getInstance().getName_actual_movie() + (char)34+"}"};
+            byte[] postData = inputData[0].getBytes(StandardCharsets.UTF_8);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty( "charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(inputData[0].length()));
+            os = new DataOutputStream(conn.getOutputStream());
+            os.write(postData);
+            os.flush();
+
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            String output;
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+            }
+
+            conn.disconnect();
+            principalScene.profileScene();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dislikeMovie(){
+        pnLikeMovie.setVisible(false);
+        HttpURLConnection conn = null;
+        DataOutputStream os = null;
+
+        try{
+            URL url = new URL("http://127.0.0.1:5000/not_like/");
+            String[] inputData = {"{\"name\": "+(char)34 + Storage.getInstance().name_actual_user + (char)34+", \"contrasena\": "+(char)34 + Storage.getInstance().getPassword_actual_user() + (char)34+ ", \"movie_title\": "+(char)34 + Storage.getInstance().getName_actual_movie() + (char)34+"}"};
+            byte[] postData = inputData[0].getBytes(StandardCharsets.UTF_8);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty( "charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(inputData[0].length()));
+            os = new DataOutputStream(conn.getOutputStream());
+            os.write(postData);
+            os.flush();
+
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            String output;
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+            }
+
+            conn.disconnect();
+            principalScene.profileScene();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void setMoviesSearch(){

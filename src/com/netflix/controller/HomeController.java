@@ -51,7 +51,8 @@ public class HomeController implements Initializable {
         String pass = txtPassword.getText();
         api_loginUser(user, pass);
         if(process != null){
-            Storage.getInstance().name_actual_user = user;
+            Storage.getInstance().setName_actual_user(user);
+            Storage.getInstance().setPassword_actual_user(pass);
             principalScene.uploadFileScene();
         }else{
             infError.setVisible(true);

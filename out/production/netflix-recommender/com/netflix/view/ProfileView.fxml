@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.netflix.controller.ProfileController">
    <children>
-      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="342.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="342.0" onMouseClicked="#logOut" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/profile_profileview.png" />
          </image>
@@ -62,7 +62,13 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Text>
-      <TextArea layoutX="30.0" layoutY="135.0" prefHeight="200.0" prefWidth="342.0" />
-      <TextArea layoutX="29.0" layoutY="378.0" prefHeight="200.0" prefWidth="342.0" />
+      <TextArea fx:id="pnPrediction" layoutX="30.0" layoutY="135.0" prefHeight="200.0" prefWidth="342.0" promptText="Recomendaciones">
+         <font>
+            <Font size="10.0" />
+         </font></TextArea>
+      <TextArea fx:id="pnView" layoutX="29.0" layoutY="378.0" prefHeight="200.0" prefWidth="342.0" promptText="Historial de películas">
+         <font>
+            <Font name="Arial" size="10.0" />
+         </font></TextArea>
    </children>
 </AnchorPane>
