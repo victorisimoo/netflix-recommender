@@ -70,7 +70,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </TextField>
-      <Button fx:id="btnViewMovie" layoutX="301.0" layoutY="543.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" style="-fx-background-color: #e50914#e50914;" text="Ver" textFill="WHITE">
+      <Button fx:id="btnViewMovie" layoutX="301.0" layoutY="543.0" mnemonicParsing="false" onAction="#viewMovie" prefHeight="27.0" prefWidth="73.0" style="-fx-background-color: #e50914#e50914;" text="Ver" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

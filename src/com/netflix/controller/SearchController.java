@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,10 +36,18 @@ public class SearchController implements Initializable {
     @FXML private ComboBox cmbTypeSearch;
     @FXML private TextArea txtResult;
     @FXML private TextField txtSearch;
+    @FXML private TextField txtViewMovie;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txtResult.setEditable(false);
+        txtViewMovie.setTextFormatter(new TextFormatter<>(c -> {
+            if (!c.getControlNewText().matches("\\d*"))
+                return null;
+            else
+                return c;
+            }
+        ));
         typeSearch = Storage.getInstance().getActualSearch()[0];
         search = Storage.getInstance().getActualSearch()[1];
         try {
@@ -149,6 +158,21 @@ public class SearchController implements Initializable {
             if(conn != null)  {
                 conn.disconnect();
             }
+        }
+    }
+
+    public void viewMovie(){
+        if(!txtViewMovie.getText().equals("")){
+            int index = Integer.parseInt(txtViewMovie.getText());
+            if(index < moviesSearch.size()){
+                    Movie movie = moviesSearch.get(index);
+                    System.out.println(movie.getTitle());
+            }else{
+                txtViewMovie.setText("");
+            }
+
+        }else {
+            // Debe de mostrar en la pantalla un error
         }
     }
 
