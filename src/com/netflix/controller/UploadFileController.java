@@ -87,7 +87,7 @@ public class UploadFileController implements Initializable {
             int count = 0;
             while ((line = reader.readLine()) != null) {
                 flag = false;
-                String[] values = line.split(",");
+                String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 for (String element : values) {
                     if (element.equals("")) {
                         flag = true;
